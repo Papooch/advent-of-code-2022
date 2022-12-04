@@ -25,18 +25,14 @@ impl MaxTotal for Vec<Elf> {
     }
 }
 
-use std::fs::File;
-use std::io::{self, prelude::*, BufReader};
+use aoc2022::file_io::lines_in_file;
 
-fn main() -> io::Result<()> {
-    let file = File::open("src/inputs/01.input")?;
-    let reader = BufReader::new(file);
-
+fn main(){
     let mut elves: Vec<Elf> = vec![];
 
     let mut items: Vec<u32> = vec![];
 
-    for line in reader.lines() {
+    for line in lines_in_file("src/inputs/01.input") {
         let string = line.unwrap();
         if string != "" {
             items.push(string.parse::<u32>().unwrap());
@@ -55,5 +51,4 @@ fn main() -> io::Result<()> {
     let totals = elves.three_max_totals();
     println!("sum of ({:?}) = {}", totals, totals.0 + totals.1 + totals.2);
 
-    Ok(())
 }
